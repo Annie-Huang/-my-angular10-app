@@ -1,0 +1,78 @@
+
+https://angular.io/guide/updating-to-version-10
+https://update.angular.io/?l=3&v=9.1-10.0
+
+
+=============================================================
+New Deprecations
+AREA	        API OR FEATURE	                  MAY BE REMOVED IN
+@angular/core	WrappedValue	                    v12
+browser       support	IE 9, 10, and IE Mobile	  v11
+
+
+=============================================================
+
+Point1:
+If you have specified any entryComponents in your NgModules or had any uses of ANALYZE_FOR_ENTRY_COMPONENTS, you can remove them.
+They are no longer required with the Ivy compiler and runtime.
+
+We have entryComponents in following. Need to test if storybook can be run after we remove it.
+We don't have ANALYZE_FOR_ENTRY_COMPONENTS in the parcel-send-ui
+- domestic-address-form.stories.ts,
+- international-address-form.stories.ts,
+- international-additional-references.stories.ts
+- field.moledule.stories.ts
+
+
+Point2:
+If you use TestBed.get, you should instead use TestBed.inject. This new method has the same behavior, but is type safe.
+
+We have TestBed.get in the following files.   << Confirmed it can be replaced.
+- abstract-form-node.organism.spec.ts
+- session.actions.spec.ts
+- abstract-from-root-node.organism.spec.ts
+- form.service.spec.ts
+
+
+During Migration:
+------------------------
+C:\Temp\parcel-send-ui>ng update @angular/core @angular/cli
+
+Point3:
+Any resolver which returns EMPTY will cancel navigation. If you want to allow navigation to continue, you will need to
+update the resolvers to emit some value, (i.e. defaultIfEmpty(...), of(...), etc).
+
+Do we need to add the safe guide into all our action.ts and service.ts files?
+e.g. like: C:\Temp\parcel-send-ui\apps\upsert\src\app\actions\upsert-settings.actions.ts
+    return this.userPreferencesService.loadParcelSendSettings(accountNumber, locationId).pipe(
+      defaultIfEmpty({} as ParcelSendSettings),
+      map(...),
+      finalize(() => ...)
+    );
+
+We can unit test and cypress test to see if all test cases pass. Definitely need bug bash for the upgrade...
+
+
+During Migration - other notes:
+------------------------------------
+Point A:
+If you use Angular forms, inputs of type number no longer listen to change events (this events are not necessarily
+fired for each alteration the value), instead listen for an input events.
+
+We don't have <input type="number"> in our app except for component demo page
+- demo-table-layout.component.html
+- demo-typeahead.component.html
+- demo-navigation-menu.component.html
+- demo-service-selector.component.html
+e.g. <input id="inputMinLength" type="number" min="1" [(ngModel)]="inputMinLength" />
+
+
+Point B:
+Warnings about unknown elements are now logged as errors. This won't break your app, but it may trip up tools that
+expect nothing to be logged via console.error.
+
+Actually quite like this. I agree it should be error rather than warning.
+
+
+
+
