@@ -13,3 +13,56 @@ C:\Temp\my-angular10-app>npm install    << Very strange that I need to do npm in
 C:\Temp\my-angular10-app>npm run start
 
 C:\Temp\my-angular10-app>ng generate library ea-ui --prefix=eui
+C:\Temp\my-angular10-app>npm run build-lib
+
+
+Files different from angular 9
+=====================================
+Root level:
+-----------------
+C:\Temp\my-angular10-app\e2e\tsconfig.json        << "target": "es2018",
+C:\Temp\my-angular10-app\.browserslistrc          << change from browserslistrc to .browserslistrc | last 2 versions > last version of chrome and firefox, last two version of edge, safari, iso
+                                                  https://angular.io/guide/browser-support
+                                                  https://en.wikipedia.org/wiki/Google_Chrome_version_history
+                                                  https://en.wikipedia.org/wiki/Firefox_version_history#Firefox_82    << Is it because of firfox, that the current version of 81 has fixed too many things and angular doesn't want to support the old versin??
+                                                  In parcel-send-ui, the browserlist file is inside each app.
+
+C:\Temp\my-angular10-app\angular.json             ea-ui/architect/build/builder
+                                                  from "builder": "@angular-devkit/build-ng-packagr:build", to  "builder": "@angular-devkit/build-angular:ng-packagr",
+
+C:\Temp\my-angular10-app\package.json             Related to angular.json:
+                                                  It no longer requires "@angular-devkit/build-ng-packagr": "~0.901.1", and "@angular/language-service": "~9.1.1", as a dev dependency.
+                                                  It's very nice it use typescript "typescript": "~4.0.2"
+
+
+C:\Temp\my-angular10-app\tsconfig.json            Change "module": "esnext" to "module": "es2020",
+                                                  Remove the whole section of "angularCompilerOptions"
+                                                  https://angular.io/config/tsconfig
+
+C:\Temp\my-angular10-app\tsconfig.spec.json       No more types: {node}
+
+C:\Temp\my-angular10-app\tslint.json              Add "typedef": [true, "call-signature"],      <<< parcel-send-ui will fail in a lot of area for this rule.
+                                                  https://palantir.github.io/tslint/rules/typedef/
+
+App level:
+--------------
+C:\Temp\my-angular10-app\src\app\app.component.spec.ts      Add await for all TestBed creation:
+                                                            async(() => {TestBed.configureTestingModule({..}) }); to
+                                                            async () => {await TestBed.configureTestingModule({..}) }
+
+
+Lib level:
+--------------
+C:\Temp\my-angular10-app\projects\ea-ui\package.json        tslib move from peerDependencies to dependencies
+
+C:\Temp\my-angular10-app\projects\ea-ui\tsconfig.lib.json   Add "declarationMap": true,
+
+C:\Temp\my-angular10-app\projects\ea-ui\tsconfig.lib.prod.json      Map to tsconfig.lib.json:
+                                                                    Add "compilerOptions": {"declarationMap": false},
+
+C:\Temp\my-angular10-app\projects\ea-ui\tsconfig.spec.json          No more types: {node}
+
+C:\Temp\my-angular10-app\projects\ea-ui\src\lib\ea-ui.component.spec.ts     Add await for all TestBed creation:
+                                                                            async(() => {TestBed.configureTestingModule({..}) }); to
+                                                                            async () => {await TestBed.configureTestingModule({..}) }
+
