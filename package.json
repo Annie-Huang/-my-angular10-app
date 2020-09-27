@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build-lib": "ng build ea-ui",
+    "build-lib:prod": "ng build ea-ui --prod=true"
   },
   "private": true,
   "dependencies": {
