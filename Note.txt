@@ -1,0 +1,13 @@
+
+https://github.com/Annie-Huang/-my-angular10-app
+===============================================================================
+
+C:\Temp\my-angular9-app\dist\my-angular9-app>npm install -g @angular/cli
+C:\Temp\my-angular9-app\dist\my-angular9-app>npm install -g @angular/cli
++ @angular/cli@10.1.3
+
+Annie@DESKTOP-BH46C1T MINGW64 /c/Temp
+$ ng new my-angular10-app --routing=true --style=scss
+
+C:\Temp\my-angular10-app>npm install    << Very strange that I need to do npm install after cli generated the package.
+C:\Temp\my-angular10-app>npm run start
