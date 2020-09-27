@@ -11,3 +11,5 @@ $ ng new my-angular10-app --routing=true --style=scss
 
 C:\Temp\my-angular10-app>npm install    << Very strange that I need to do npm install after cli generated the package.
 C:\Temp\my-angular10-app>npm run start
+
+C:\Temp\my-angular10-app>ng generate library ea-ui --prefix=eui
