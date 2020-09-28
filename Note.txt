@@ -66,3 +66,4 @@ C:\Temp\my-angular10-app\projects\ea-ui\src\lib\ea-ui.component.spec.ts     Add 
                                                                             async(() => {TestBed.configureTestingModule({..}) }); to
                                                                             async () => {await TestBed.configureTestingModule({..}) }
 
+
